@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pulkit · Projects</title>
+<meta name="description" content="Finance and software projects: valuation, derivatives pricing, tax and audit tooling, and a local AI voice agent. Live demos and source code.">
+<meta property="og:title" content="Pulkit · Projects">
+<meta property="og:description" content="Live demos and source code: DCF valuation, option mispricing, ITR filing portal, audit sampling tool and a local AI voice agent.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --ink: #0f141b; --muted: #5b6675;
+  --line: #e3e7ec; --accent: #0b7a5b; --accent-ink: #ffffff; --chip: #eef2f5;
+  --live: #0b7a5b; --local: #8a5a00; --shadow: 0 1px 2px rgba(15,20,27,.06), 0 8px 24px rgba(15,20,27,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117; --surface: #161b22; --ink: #e6edf3; --muted: #9aa6b2;
+    --line: #262d36; --accent: #3fb68b; --accent-ink: #06130e; --chip: #1f262e;
+    --live: #3fb68b; --local: #e0a23a; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117; --surface: #161b22; --ink: #e6edf3; --muted: #9aa6b2;
+  --line: #262d36; --accent: #3fb68b; --accent-ink: #06130e; --chip: #1f262e;
+  --live: #3fb68b; --local: #e0a23a; --shadow: none;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+header { padding: 64px 0 32px; }
+.eyebrow { font: 500 12.5px/1 "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.12; margin: 14px 0 12px;
+  letter-spacing: -.02em; }
+.lede { color: var(--muted); max-width: 640px; margin: 0; font-size: 17.5px; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 22px;
+  color: var(--muted); font-size: 13.5px; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  margin-right: 6px; vertical-align: middle; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px; padding-bottom: 56px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 22px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+.card h2 { font-size: 19px; margin: 10px 0 8px; letter-spacing: -.01em; }
+.status { font: 500 12px/1 "JetBrains Mono", ui-monospace, monospace; }
+.status.live { color: var(--live); } .status.local { color: var(--local); }
+.card p { color: var(--muted); margin: 0 0 14px; font-size: 15px; }
+.points { margin: 0 0 16px; padding-left: 18px; font-size: 14.5px; }
+.points li { margin: 3px 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 18px; }
+.tag { background: var(--chip); border-radius: 999px; padding: 3px 10px;
+  font-size: 12.5px; color: var(--muted); }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { text-decoration: none; font-weight: 600; font-size: 14.5px; padding: 9px 16px;
+  border-radius: 9px; border: 1px solid var(--line); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn:hover { filter: brightness(1.06); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.note { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted);
+  font-size: 13.5px; }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="eyebrow">Portfolio · finance × software</div>
+  <h1>Projects you can open and use</h1>
+  <p class="lede">Valuation, derivatives pricing, tax and audit tooling, and a local AI
+  voice agent. Each project links to its source code, and most run live in your browser on
+  fictional or public data.</p>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--live)"></span>Live demo in the browser</span>
+    <span><span class="dot" style="background:var(--local)"></span>Runs locally (code + docs)</span>
+  </div>
+</header>
+
+<main class="wrap grid">
+
+  <article class="card">
+    <span class="status live">● LIVE SITE</span>
+    <h2>DCF Valuation Platform</h2>
+    <p>A validated discounted-cash-flow research platform whose intrinsic values drive a
+    published model portfolio.</p>
+    <ul class="points">
+      <li>Kalman-filtered, state-space free-cash-flow forecaster</li>
+      <li>Survivorship-robust, cost-aware backtests of the value signal</li>
+      <li>Sell-side style Excel workbooks; 281 tests</li>
+    </ul>
+    <div class="tags"><span class="tag">Python</span><span class="tag">SEC EDGAR</span><span class="tag">State-space models</span><span class="tag">Excel</span></div>
+    <div class="actions">
+      <a class="btn primary" href="https://ps11242026.github.io/phoenix-capital/">Open live site</a>
+      <a class="btn" href="https://github.com/PS11242026/dcf-valuation-platform">Code</a>
+    </div>
+  </article>
+
+  <article class="card">
+    <span class="status live">● LIVE APP</span>
+    <h2>Option Mispricing Model</h2>
+    <p>Prices equity options with Black-Scholes-Merton and ranks contracts where the market
+    diverges from the model.</p>
+    <ul class="points">
+      <li>Interactive BSM calculator with put-call parity check</li>
+      <li>Live Yahoo Finance option-chain scan with buy/sell signals</li>
+      <li>Excel export of the full dataset</li>
+    </ul>
+    <div class="tags"><span class="tag">Python</span><span class="tag">Derivatives</span><span class="tag">yfinance</span><span class="tag">Streamlit</span></div>
+    <div class="actions">
+      <a class="btn primary" href="https://ps-option-pricing.streamlit.app">Open live app</a>
+      <a class="btn" href="https://github.com/PS11242026/Option_pricing_model">Code</a>
+    </div>
+  </article>
+
+  <article class="card">
+    <span class="status live">● LIVE DEMO</span>
+    <h2>ITR Filing Portal</h2>
+    <p>Practice-management portal for Indian individual income-tax returns, AY 2026-27,
+    ITR-1 to ITR-4.</p>
+    <ul class="points">
+      <li>Tax engine calibrated to the rupee against practitioner software</li>
+      <li>AIS / 26AS / bank-statement ingestion and reconciliation</li>
+      <li>Encrypted PII, role-based access, hash-chained audit log; 400+ tests</li>
+    </ul>
+    <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">SQLite</span><span class="tag">Income tax</span></div>
+    <div class="actions">
+      <a class="btn primary" href="https://ps-itr-portal.streamlit.app">Open demo</a>
+      <a class="btn" href="https://github.com/PS11242026/itr-filing-portal">Code</a>
+    </div>
+    <p class="note">Demo data is fictional; one-click sign-in as partner, staff or client.</p>
+  </article>
+
+  <article class="card">
+    <span class="status live">● LIVE DEMO</span>
+    <h2>Audit Sampling &amp; Risk Tool</h2>
+    <p>Guided statutory-audit workflow for a regulated power-transmission utility.</p>
+    <ul class="points">
+      <li>SA 315 risk assessment and SA 530 MUS / stratified sampling</li>
+      <li>Tariff-order revenue reconciliation and SA 505 confirmations</li>
+      <li>Excel workpaper pack, PDF memo and SA 230 audit trail</li>
+    </ul>
+    <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">Audit analytics</span><span class="tag">Statistics</span></div>
+    <div class="actions">
+      <a class="btn primary" href="https://ps-audit-tool.streamlit.app">Open demo</a>
+      <a class="btn" href="https://github.com/PS11242026/audit-sampling-tool">Code</a>
+    </div>
+    <p class="note">Fictional utility with synthetic ledger data and planted exceptions to find.</p>
+  </article>
+
+  <article class="card">
+    <span class="status local">● RUNS LOCALLY</span>
+    <h2>Jarvis: Local Voice Agent</h2>
+    <p>A local-first Windows voice assistant that answers only to its enrolled user and
+    carries out tasks end to end.</p>
+    <ul class="points">
+      <li>Wake word, voice activity detection and speaker verification</li>
+      <li>Local LLM planner that researches the web when it is unsure</li>
+      <li>App, file, browser and system automation; 489 tests</li>
+    </ul>
+    <div class="tags"><span class="tag">Python</span><span class="tag">Speech</span><span class="tag">Local LLM</span><span class="tag">RAG</span></div>
+    <div class="actions">
+      <a class="btn primary" href="https://github.com/PS11242026/jarvis-agent">Code &amp; setup</a>
+    </div>
+    <p class="note">Needs a Windows PC with a microphone, so it can't run in the browser.</p>
+  </article>
+
+</main>
+
+<footer class="wrap">
+  Projects are for education and demonstration. Model outputs are not investment, tax or
+  audit advice. · <a href="https://github.com/PS11242026">GitHub</a>
+</footer>
+</body>
+</html>
