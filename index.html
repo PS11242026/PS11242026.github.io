@@ -4,176 +4,518 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pulkit · Projects</title>
-<meta name="description" content="Finance and software projects: valuation, derivatives pricing, tax and audit tooling, and a local AI voice agent. Live demos and source code.">
+<meta name="description" content="Finance and software projects: DCF valuation, option mispricing, an income-tax filing portal and an audit sampling tool. Live demos and source code.">
 <meta property="og:title" content="Pulkit · Projects">
-<meta property="og:description" content="Live demos and source code: DCF valuation, option mispricing, ITR filing portal, audit sampling tool and a local AI voice agent.">
+<meta property="og:description" content="Four live finance tools: DCF valuation, option mispricing, ITR filing portal and audit sampling. Open them in your browser.">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0b0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f6f7f9; --surface: #ffffff; --ink: #0f141b; --muted: #5b6675;
-  --line: #e3e7ec; --accent: #0b7a5b; --accent-ink: #ffffff; --chip: #eef2f5;
-  --live: #0b7a5b; --local: #8a5a00; --shadow: 0 1px 2px rgba(15,20,27,.06), 0 8px 24px rgba(15,20,27,.06);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0d1117; --surface: #161b22; --ink: #e6edf3; --muted: #9aa6b2;
-    --line: #262d36; --accent: #3fb68b; --accent-ink: #06130e; --chip: #1f262e;
-    --live: #3fb68b; --local: #e0a23a; --shadow: none;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0d1117; --surface: #161b22; --ink: #e6edf3; --muted: #9aa6b2;
-  --line: #262d36; --accent: #3fb68b; --accent-ink: #06130e; --chip: #1f262e;
-  --live: #3fb68b; --local: #e0a23a; --shadow: none;
+  --bg: #0a0b0e; --bg-2: #101217; --surface: #13161c; --ink: #f2efe8; --muted: #9a9ca3;
+  --faint: #5f636c; --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.14);
+  --accent: #c9a96e; --ease: cubic-bezier(.22,.7,.12,1);
+  --slide-w: min(1120px, calc(100vw - 32px));
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font: 16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--sans);
+  overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(900px 520px at 85% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(700px 500px at -10% 110%, rgba(255,255,255,.035), transparent 70%);
+  transition: background 1.2s var(--ease); }
 a { color: inherit; }
-.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
-header { padding: 64px 0 32px; }
-.eyebrow { font: 500 12.5px/1 "JetBrains Mono", ui-monospace, monospace;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.12; margin: 14px 0 12px;
-  letter-spacing: -.02em; }
-.lede { color: var(--muted); max-width: 640px; margin: 0; font-size: 17.5px; }
-.legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 22px;
-  color: var(--muted); font-size: 13.5px; }
-.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-  margin-right: 6px; vertical-align: middle; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 18px; padding-bottom: 56px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-  padding: 22px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
-.card h2 { font-size: 19px; margin: 10px 0 8px; letter-spacing: -.01em; }
-.status { font: 500 12px/1 "JetBrains Mono", ui-monospace, monospace; }
-.status.live { color: var(--live); } .status.local { color: var(--local); }
-.card p { color: var(--muted); margin: 0 0 14px; font-size: 15px; }
-.points { margin: 0 0 16px; padding-left: 18px; font-size: 14.5px; }
-.points li { margin: 3px 0; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 18px; }
-.tag { background: var(--chip); border-radius: 999px; padding: 3px 10px;
-  font-size: 12.5px; color: var(--muted); }
-.actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.btn { text-decoration: none; font-weight: 600; font-size: 14.5px; padding: 9px 16px;
-  border-radius: 9px; border: 1px solid var(--line); }
-.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.btn:hover { filter: brightness(1.06); }
-.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.note { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted);
-  font-size: 13.5px; }
+.wrap { position: relative; z-index: 1; width: var(--slide-w); margin: 0 auto; }
+
+/* top bar */
+.top { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 0; }
+.mark { font: 400 22px/1 var(--serif); letter-spacing: .01em; text-decoration: none; }
+.mark i { color: var(--accent); font-style: italic; transition: color .8s var(--ease); }
+.top nav { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+.top nav a { text-decoration: none; transition: color .2s; }
+.top nav a:hover { color: var(--ink); }
+
+/* hero */
+.hero { padding: clamp(56px, 10vh, 110px) 0 clamp(36px, 6vh, 64px); display: grid;
+  grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent);
+  transition: background .8s var(--ease); }
+h1 { font: 400 clamp(46px, 8.2vw, 104px)/.95 var(--serif); letter-spacing: -.02em;
+  margin: 22px 0 24px; }
+h1 em { color: var(--accent); transition: color .8s var(--ease); }
+.lede { color: var(--muted); max-width: 560px; margin: 0; font-size: 17px; }
+.stats { display: flex; gap: 40px; padding-bottom: 6px; }
+.stat b { display: block; font: 400 46px/1 var(--serif); }
+.stat span { font: 500 11px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--faint); }
+
+/* carousel */
+.carousel { position: relative; z-index: 1; }
+.track { display: flex; gap: 28px; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 8px calc((100vw - var(--slide-w)) / 2) 28px; }
+.track::-webkit-scrollbar { display: none; }
+.track:focus-visible { outline: none; }
+.slide { --hue: #c9a96e; flex: 0 0 var(--slide-w); scroll-snap-align: center;
+  scroll-snap-stop: always; position: relative; border-radius: 28px; overflow: hidden;
+  background: linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.01) 40%), var(--surface);
+  border: 1px solid var(--line); box-shadow: 0 40px 80px -40px rgba(0,0,0,.8),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  display: grid; grid-template-columns: 1.02fr 1fr; min-height: min(620px, 78vh);
+  opacity: .32; transform: scale(.94); filter: saturate(.4);
+  transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+.slide.is-active { opacity: 1; transform: none; filter: none; }
+.slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(600px 400px at 100% 0%, color-mix(in srgb, var(--hue) 16%, transparent), transparent 70%); }
+
+.copy { position: relative; z-index: 1; padding: clamp(28px, 4.2vw, 56px);
+  display: flex; flex-direction: column; }
+.copy > * { opacity: 0; transform: translateY(14px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.slide.is-active .copy > * { opacity: 1; transform: none; }
+.slide.is-active .copy > :nth-child(2) { transition-delay: .06s; }
+.slide.is-active .copy > :nth-child(3) { transition-delay: .12s; }
+.slide.is-active .copy > :nth-child(4) { transition-delay: .18s; }
+.slide.is-active .copy > :nth-child(5) { transition-delay: .24s; }
+.slide.is-active .copy > :nth-child(6) { transition-delay: .30s; }
+.meta { display: flex; align-items: center; justify-content: space-between;
+  font: 500 11.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+.live { display: inline-flex; align-items: center; gap: 8px; color: var(--hue); }
+.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+  box-shadow: 0 0 0 0 currentColor; animation: pulse 2.4s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--hue) 60%, transparent); }
+  70%,100% { box-shadow: 0 0 0 9px transparent; } }
+.slide h2 { font: 400 clamp(36px, 4.6vw, 58px)/1 var(--serif); letter-spacing: -.015em;
+  margin: clamp(22px, 4vh, 44px) 0 16px; }
+.slide h2 em { color: var(--hue); }
+.desc { color: var(--muted); margin: 0 0 26px; font-size: 16px; max-width: 440px; }
+.points { list-style: none; margin: 0 0 28px; padding: 0; border-top: 1px solid var(--line); }
+.points li { padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
+  display: grid; grid-template-columns: 34px 1fr; color: #d9d6cf; }
+.points li::before { content: counter(p, decimal-leading-zero); counter-increment: p;
+  font: 400 11px/2 var(--mono); color: var(--faint); }
+.points { counter-reset: p; }
+.foot { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+  font-weight: 500; font-size: 14.5px; padding: 13px 22px; border-radius: 999px;
+  background: var(--ink); color: #0a0b0e; transition: transform .3s var(--ease), background .3s; }
+.btn svg { transition: transform .3s var(--ease); }
+.btn:hover { background: var(--hue); }
+.btn:hover svg { transform: translate(2px,-2px); }
+.link { font-size: 14.5px; color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid var(--line-2); padding-bottom: 2px; transition: color .2s, border-color .2s; }
+.link:hover { color: var(--ink); border-color: var(--ink); }
+.stack { width: 100%; font: 400 11.5px/1.6 var(--mono); color: var(--faint); letter-spacing: .04em; }
+.note { width: 100%; font-size: 12.5px; color: var(--faint); margin: 0; }
+
+.visual { position: relative; z-index: 1; margin: 14px; border-radius: 20px; overflow: hidden;
+  background: radial-gradient(120% 90% at 70% 20%, color-mix(in srgb, var(--hue) 13%, #0d0f13), #0b0c10 70%);
+  border: 1px solid var(--line); display: grid; place-items: center; }
+.visual::before { content: ""; position: absolute; inset: 0; opacity: .5;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px; mask-image: radial-gradient(closest-side, #000, transparent); }
+.visual svg { position: relative; width: 100%; height: auto; max-height: 100%; color: var(--hue); }
+.visual .cap { position: absolute; left: 22px; bottom: 18px; font: 400 11px/1 var(--mono);
+  color: var(--faint); letter-spacing: .1em; text-transform: uppercase; }
+.vt { font: 400 11px var(--mono); fill: var(--faint); letter-spacing: .06em; }
+.vt.hi { fill: currentColor; }
+.vt.ink { fill: #d9d6cf; }
+
+/* draw-in animation for the charts */
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s var(--ease) .25s; }
+.slide.is-active .draw { stroke-dashoffset: 0; }
+.fade { opacity: 0; transition: opacity 1s var(--ease); transition-delay: var(--d, .6s); }
+.slide.is-active .fade { opacity: 1; }
+.pop { opacity: 0; transform: scale(.2); transform-box: fill-box; transform-origin: center;
+  transition: opacity .6s var(--ease), transform .7s var(--ease); transition-delay: var(--d, .5s); }
+.slide.is-active .pop { opacity: 1; transform: none; }
+.grow { transform: scaleY(0); transform-box: fill-box; transform-origin: bottom;
+  transition: transform 1s var(--ease); transition-delay: var(--d, .2s); }
+.slide.is-active .grow { transform: none; }
+
+/* controls */
+.controls { position: relative; z-index: 1; display: flex; align-items: center; gap: 28px;
+  padding: 10px 0 0; }
+.tabs { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.tab { all: unset; cursor: pointer; display: block; padding-top: 16px; position: relative;
+  color: var(--faint); transition: color .4s; }
+.tab::before, .tab::after { content: ""; position: absolute; top: 0; left: 0; height: 1px; }
+.tab::before { right: 0; background: var(--line-2); }
+.tab::after { width: 0; background: var(--ink); transition: width .9s var(--ease); }
+.tab[aria-selected="true"] { color: var(--ink); }
+.tab[aria-selected="true"]::after { width: 100%; }
+.tab:hover { color: var(--muted); }
+.tab:focus-visible { outline: 1px solid var(--accent); outline-offset: 6px; border-radius: 2px; }
+.tab small { display: block; font: 400 11px/1 var(--mono); letter-spacing: .12em; margin-bottom: 8px; }
+.tab span { font-size: 14px; font-weight: 500; }
+.arrows { display: flex; gap: 10px; }
+.arrow { all: unset; cursor: pointer; width: 50px; height: 50px; border-radius: 50%;
+  border: 1px solid var(--line-2); display: grid; place-items: center; color: var(--ink);
+  transition: background .3s, border-color .3s, opacity .3s; }
+.arrow:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3); }
+.arrow:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+.arrow[disabled] { opacity: .3; cursor: default; }
+.counter { font: 400 13px/1 var(--mono); color: var(--faint); letter-spacing: .1em; min-width: 64px; }
+.counter b { color: var(--ink); font-weight: 400; }
+.hint { font: 400 11px/1 var(--mono); color: var(--faint); letter-spacing: .1em;
+  text-transform: uppercase; }
+
+footer { position: relative; z-index: 1; margin-top: clamp(72px, 12vh, 120px);
+  border-top: 1px solid var(--line); padding: 28px 0 44px; display: flex; flex-wrap: wrap;
+  gap: 12px 32px; justify-content: space-between; color: var(--faint); font-size: 13px; }
+footer a { color: var(--muted); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .stats { gap: 28px; }
+  .slide { grid-template-columns: 1fr; min-height: 0; }
+  .visual { order: -1; margin: 10px 10px 0; aspect-ratio: 4 / 3; }
+  .track { gap: 12px; }
+  .tabs { display: none; }
+  .controls { justify-content: space-between; }
+  .hint { display: none; }
+}
+@media (max-width: 520px) {
+  .top nav { gap: 16px; }
+  .stat b { font-size: 36px; }
+  .copy { padding: 24px 22px 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important;
+    animation: none !important; }
+}
 </style>
 </head>
 <body>
-<header class="wrap">
-  <div class="eyebrow">Portfolio · finance × software</div>
-  <h1>Projects you can open and use</h1>
-  <p class="lede">Valuation, derivatives pricing, tax and audit tooling, and a local AI
-  voice agent. Each project links to its source code, and most run live in your browser on
-  fictional or public data.</p>
-  <div class="legend">
-    <span><span class="dot" style="background:var(--live)"></span>Live demo in the browser</span>
-    <span><span class="dot" style="background:var(--local)"></span>Runs locally (code + docs)</span>
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#">Pulkit <i>·</i> Projects</a>
+    <nav><a href="#work">Work</a><a href="https://github.com/PS11242026">GitHub</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Finance × software</div>
+      <h1>Finance, <em>engineered</em><br>into working tools.</h1>
+      <p class="lede">Valuation, derivatives, tax and audit, each built as a product you can
+      open and use right now. Every demo runs on fictional or public data, and the full source
+      is on GitHub.</p>
+    </div>
+    <div class="stats" aria-label="At a glance">
+      <div class="stat"><b>4</b><span>Live<br>apps</span></div>
+      <div class="stat"><b>750+</b><span>Automated<br>tests</span></div>
+    </div>
+  </section>
+</div>
+
+<section class="carousel" id="work" aria-roledescription="carousel" aria-label="Projects">
+  <div class="track" id="track" tabindex="0">
+
+    <!-- 01 DCF -->
+    <article class="slide" style="--hue:#7fc8a9" aria-roledescription="slide" aria-label="1 of 4: DCF Valuation Platform" id="s1">
+      <div class="copy">
+        <div class="meta"><span class="live">Live site</span><span>01 / Equity research</span></div>
+        <h2>DCF <em>Valuation</em> Platform</h2>
+        <p class="desc">A validated discounted-cash-flow research platform whose intrinsic
+        values drive a published model portfolio.</p>
+        <ul class="points">
+          <li>Kalman-filtered, state-space free-cash-flow forecaster</li>
+          <li>Survivorship-robust, cost-aware backtests of the value signal</li>
+          <li>Sell-side style Excel workbooks, 281 tests</li>
+        </ul>
+        <div class="foot">
+          <a class="btn" href="https://ps11242026.github.io/phoenix-capital/">Open live site
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+          <a class="link" href="https://github.com/PS11242026/dcf-valuation-platform">View code</a>
+          <div class="stack">Python · SEC EDGAR · State-space models · Excel</div>
+        </div>
+      </div>
+      <div class="visual" aria-hidden="true">
+        <svg viewBox="0 0 480 380" fill="none">
+          <text class="vt" x="40" y="44">FREE CASH FLOW</text>
+          <text class="vt hi" x="440" y="44" text-anchor="end">FORECAST · 90% BAND</text>
+          <g fill="currentColor" opacity=".22">
+            <rect class="grow" style="--d:.15s" x="48"  y="250" width="22" height="70"/>
+            <rect class="grow" style="--d:.2s"  x="88"  y="232" width="22" height="88"/>
+            <rect class="grow" style="--d:.25s" x="128" y="240" width="22" height="80"/>
+            <rect class="grow" style="--d:.3s"  x="168" y="206" width="22" height="114"/>
+            <rect class="grow" style="--d:.35s" x="208" y="188" width="22" height="132"/>
+          </g>
+          <path class="fade" style="--d:1s" fill="currentColor" fill-opacity=".14" d="M240 182 L440 80 L440 214 L240 192 Z"/>
+          <path class="draw" pathLength="1" stroke="currentColor" stroke-width="2" d="M59 246 L99 228 L139 236 L179 202 L219 184 L240 186"/>
+          <path class="fade" style="--d:1.2s" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6" d="M240 186 C300 170 360 156 440 146"/>
+          <line x1="240" y1="70" x2="240" y2="320" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 5"/>
+          <text class="vt" x="248" y="314">TODAY</text>
+          <circle class="pop" style="--d:1.6s" cx="440" cy="146" r="5" fill="currentColor"/>
+          <line x1="40" y1="320" x2="440" y2="320" stroke="rgba(255,255,255,.16)"/>
+          <g class="fade" style="--d:1.7s">
+            <text class="vt" x="40" y="354">INTRINSIC VALUE</text>
+            <text class="vt ink" x="158" y="354">vs MARKET PRICE</text>
+            <text class="vt hi" x="440" y="354" text-anchor="end">MARGIN OF SAFETY +18%</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- 02 Options -->
+    <article class="slide" style="--hue:#e2b867" aria-roledescription="slide" aria-label="2 of 4: Option Mispricing Model" id="s2">
+      <div class="copy">
+        <div class="meta"><span class="live">Live app</span><span>02 / Derivatives</span></div>
+        <h2>Option <em>Mispricing</em> Model</h2>
+        <p class="desc">Prices equity options with Black-Scholes-Merton and ranks the
+        contracts where the market diverges from the model.</p>
+        <ul class="points">
+          <li>Interactive BSM calculator with a put-call parity check</li>
+          <li>Option-chain scan of top S&amp;P 500 names with buy/sell signals</li>
+          <li>Spread construction from the 50 most mispriced contracts</li>
+        </ul>
+        <div class="foot">
+          <a class="btn" href="https://optionpricingengine.streamlit.app/">Open live app
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+          <a class="link" href="https://github.com/PS11242026/Option_pricing_model">View code</a>
+          <div class="stack">Python · Black-Scholes-Merton · yfinance · Streamlit</div>
+        </div>
+      </div>
+      <div class="visual" aria-hidden="true">
+        <svg viewBox="0 0 480 380" fill="none">
+          <text class="vt" x="40" y="44">CALL PRICE vs STRIKE</text>
+          <text class="vt hi" x="440" y="44" text-anchor="end">BSM FAIR VALUE</text>
+          <line x1="40" y1="320" x2="440" y2="320" stroke="rgba(255,255,255,.16)"/>
+          <line x1="40" y1="70" x2="40" y2="320" stroke="rgba(255,255,255,.16)"/>
+          <path class="draw" pathLength="1" stroke="currentColor" stroke-width="2" d="M52 84 C150 150 250 250 440 300"/>
+          <g fill="#d9d6cf">
+            <circle class="pop" style="--d:.9s"  cx="80"  cy="104" r="3.5"/>
+            <circle class="pop" style="--d:.95s" cx="112" cy="122" r="3.5"/>
+            <circle class="pop" style="--d:1.05s" cx="176" cy="172" r="3.5"/>
+            <circle class="pop" style="--d:1.1s" cx="208" cy="194" r="3.5"/>
+            <circle class="pop" style="--d:1.2s" cx="272" cy="240" r="3.5"/>
+            <circle class="pop" style="--d:1.25s" cx="336" cy="268" r="3.5"/>
+            <circle class="pop" style="--d:1.35s" cx="400" cy="289" r="3.5"/>
+          </g>
+          <g stroke="currentColor" stroke-width="1.5">
+            <circle class="pop" style="--d:1.5s" cx="144" cy="196" r="6" fill="currentColor"/>
+            <circle class="pop" style="--d:1.55s" cx="144" cy="196" r="14" fill="none" stroke-opacity=".5"/>
+            <line class="fade" style="--d:1.6s" x1="144" y1="182" x2="144" y2="150" stroke-dasharray="2 4" stroke-opacity=".6"/>
+            <circle class="pop" style="--d:1.65s" cx="304" cy="214" r="6" fill="currentColor"/>
+            <circle class="pop" style="--d:1.7s" cx="304" cy="214" r="14" fill="none" stroke-opacity=".5"/>
+            <line class="fade" style="--d:1.75s" x1="304" y1="228" x2="304" y2="252" stroke-dasharray="2 4" stroke-opacity=".6"/>
+          </g>
+          <g class="fade" style="--d:1.8s">
+            <text class="vt hi" x="126" y="200" text-anchor="end">BUY · −12.4%</text>
+            <text class="vt hi" x="318" y="206">SELL · +9.1%</text>
+            <text class="vt" x="40" y="354">● MARKET</text>
+            <text class="vt hi" x="440" y="354" text-anchor="end">50 CONTRACTS FLAGGED</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- 03 ITR -->
+    <article class="slide" style="--hue:#8fb3ff" aria-roledescription="slide" aria-label="3 of 4: ITR Filing Portal" id="s3">
+      <div class="copy">
+        <div class="meta"><span class="live">Live demo</span><span>03 / Income tax</span></div>
+        <h2>ITR <em>Filing</em> Portal</h2>
+        <p class="desc">A practice-management portal for Indian individual income-tax
+        returns, AY 2026-27, ITR-1 to ITR-4.</p>
+        <ul class="points">
+          <li>Tax engine calibrated to the rupee against practitioner software</li>
+          <li>AIS, 26AS and bank-statement ingestion and reconciliation</li>
+          <li>Encrypted PII, role-based access and a hash-chained audit log, 400+ tests</li>
+        </ul>
+        <div class="foot">
+          <a class="btn" href="https://ps-itr.streamlit.app">Open demo
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+          <a class="link" href="https://github.com/PS11242026/itr-filing-portal">View code</a>
+          <div class="stack">Python · Streamlit · SQLite · Income tax</div>
+          <p class="note">Fictional data; one-click sign-in as partner, staff or client.</p>
+        </div>
+      </div>
+      <div class="visual" aria-hidden="true">
+        <svg viewBox="0 0 480 380" fill="none">
+          <rect class="fade" style="--d:.1s" x="70" y="40" width="340" height="300" rx="14" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.12)"/>
+          <text class="vt" x="96" y="78">COMPUTATION OF TOTAL INCOME</text>
+          <text class="vt hi" x="384" y="78" text-anchor="end">AY 2026-27</text>
+          <line x1="96" y1="94" x2="384" y2="94" stroke="rgba(255,255,255,.1)"/>
+          <g class="fade" style="--d:.35s"><text class="vt ink" x="96" y="126">Salary</text><text class="vt ink" x="384" y="126" text-anchor="end">18,40,000</text></g>
+          <g class="fade" style="--d:.5s"><text class="vt ink" x="96" y="154">House property</text><text class="vt ink" x="384" y="154" text-anchor="end">(1,20,000)</text></g>
+          <g class="fade" style="--d:.65s"><text class="vt ink" x="96" y="182">Capital gains · 112A</text><text class="vt ink" x="384" y="182" text-anchor="end">2,35,500</text></g>
+          <g class="fade" style="--d:.8s"><text class="vt ink" x="96" y="210">Other sources</text><text class="vt ink" x="384" y="210" text-anchor="end">64,820</text></g>
+          <line class="draw" pathLength="1" x1="96" y1="230" x2="384" y2="230" stroke="currentColor" stroke-width="1.2"/>
+          <g class="fade" style="--d:1.1s"><text class="vt hi" x="96" y="258">Tax payable</text><text class="vt hi" x="384" y="258" text-anchor="end">₹ 3,12,360</text></g>
+          <g class="pop" style="--d:1.4s">
+            <rect x="96" y="284" width="228" height="30" rx="15" fill="color-mix(in srgb, currentColor 16%, transparent)" stroke="currentColor" stroke-opacity=".5"/>
+            <path d="M110 299 l5 5 9-10" stroke="currentColor" stroke-width="1.8"/>
+            <text class="vt hi" x="132" y="303">RECONCILED · AIS / 26AS</text>
+          </g>
+          <text class="vt" x="40" y="366">FICTIONAL TAXPAYER</text>
+          <text class="vt hi" x="440" y="366" text-anchor="end">ITR-1 → ITR-4</text>
+        </svg>
+      </div>
+    </article>
+
+    <!-- 04 Audit -->
+    <article class="slide" style="--hue:#b8a2ff" aria-roledescription="slide" aria-label="4 of 4: Audit Sampling and Risk Tool" id="s4">
+      <div class="copy">
+        <div class="meta"><span class="live">Live demo</span><span>04 / Statutory audit</span></div>
+        <h2>Audit <em>Sampling</em> &amp; Risk</h2>
+        <p class="desc">A guided statutory-audit workflow for a regulated power-transmission
+        utility, from risk assessment to signed workpapers.</p>
+        <ul class="points">
+          <li>SA 315 risk assessment and SA 530 MUS / stratified sampling</li>
+          <li>Tariff-order revenue reconciliation and SA 505 confirmations</li>
+          <li>Excel workpaper pack, PDF memo and SA 230 audit trail</li>
+        </ul>
+        <div class="foot">
+          <a class="btn" href="https://ps-audit-tool.streamlit.app">Open demo
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9 9 3M4 3h5v5"/></svg></a>
+          <a class="link" href="https://github.com/PS11242026/audit-sampling-tool">View code</a>
+          <div class="stack">Python · Streamlit · Audit analytics · Statistics</div>
+          <p class="note">Fictional utility, synthetic ledgers, with planted exceptions to find.</p>
+        </div>
+      </div>
+      <div class="visual" aria-hidden="true">
+        <svg viewBox="0 0 480 380" fill="none">
+          <text class="vt" x="40" y="44">LEDGER POPULATION · 2,418 ITEMS</text>
+          <text class="vt hi" x="440" y="44" text-anchor="end">MUS SAMPLE</text>
+          <g id="audit-dots"></g>
+          <g class="fade" style="--d:1.8s">
+            <text class="vt" x="40" y="354">○ POPULATION</text>
+            <text class="vt hi" x="150" y="354">◉ SELECTED</text>
+            <text class="vt ink" x="440" y="354" text-anchor="end">2 EXCEPTIONS FOUND</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+
   </div>
-</header>
 
-<main class="wrap grid">
-
-  <article class="card">
-    <span class="status live">● LIVE SITE</span>
-    <h2>DCF Valuation Platform</h2>
-    <p>A validated discounted-cash-flow research platform whose intrinsic values drive a
-    published model portfolio.</p>
-    <ul class="points">
-      <li>Kalman-filtered, state-space free-cash-flow forecaster</li>
-      <li>Survivorship-robust, cost-aware backtests of the value signal</li>
-      <li>Sell-side style Excel workbooks; 281 tests</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">SEC EDGAR</span><span class="tag">State-space models</span><span class="tag">Excel</span></div>
-    <div class="actions">
-      <a class="btn primary" href="https://ps11242026.github.io/phoenix-capital/">Open live site</a>
-      <a class="btn" href="https://github.com/PS11242026/dcf-valuation-platform">Code</a>
+  <div class="wrap controls">
+    <div class="tabs" role="tablist" aria-label="Choose a project">
+      <button class="tab" role="tab" aria-controls="s1"><small>01</small><span>DCF Valuation</span></button>
+      <button class="tab" role="tab" aria-controls="s2"><small>02</small><span>Option Mispricing</span></button>
+      <button class="tab" role="tab" aria-controls="s3"><small>03</small><span>ITR Filing Portal</span></button>
+      <button class="tab" role="tab" aria-controls="s4"><small>04</small><span>Audit Sampling</span></button>
     </div>
-  </article>
-
-  <article class="card">
-    <span class="status live">● LIVE APP</span>
-    <h2>Option Mispricing Model</h2>
-    <p>Prices equity options with Black-Scholes-Merton and ranks contracts where the market
-    diverges from the model.</p>
-    <ul class="points">
-      <li>Interactive BSM calculator with put-call parity check</li>
-      <li>Live Yahoo Finance option-chain scan with buy/sell signals</li>
-      <li>Excel export of the full dataset</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Derivatives</span><span class="tag">yfinance</span><span class="tag">Streamlit</span></div>
-    <div class="actions">
-      <a class="btn primary" href="https://optionpricingengine.streamlit.app/">Open live app</a>
-      <a class="btn" href="https://github.com/PS11242026/Option_pricing_model">Code</a>
+    <div class="counter" aria-live="polite"><b id="cur">01</b> / 04</div>
+    <div class="arrows">
+      <button class="arrow" id="prev" aria-label="Previous project">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3 5 8l5 5"/></svg></button>
+      <button class="arrow" id="next" aria-label="Next project">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 3 5 5-5 5"/></svg></button>
     </div>
-  </article>
+  </div>
+</section>
 
-  <article class="card">
-    <span class="status live">● LIVE DEMO</span>
-    <h2>ITR Filing Portal</h2>
-    <p>Practice-management portal for Indian individual income-tax returns, AY 2026-27,
-    ITR-1 to ITR-4.</p>
-    <ul class="points">
-      <li>Tax engine calibrated to the rupee against practitioner software</li>
-      <li>AIS / 26AS / bank-statement ingestion and reconciliation</li>
-      <li>Encrypted PII, role-based access, hash-chained audit log; 400+ tests</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">SQLite</span><span class="tag">Income tax</span></div>
-    <div class="actions">
-      <a class="btn primary" href="https://ps-itr.streamlit.app">Open demo</a>
-      <a class="btn" href="https://github.com/PS11242026/itr-filing-portal">Code</a>
-    </div>
-    <p class="note">Demo data is fictional; one-click sign-in as partner, staff or client.</p>
-  </article>
+<div class="wrap">
+  <footer>
+    <span>Projects are for education and demonstration. Model outputs are not investment, tax or audit advice.</span>
+    <span><a href="https://github.com/PS11242026">github.com/PS11242026</a></span>
+  </footer>
+</div>
 
-  <article class="card">
-    <span class="status live">● LIVE DEMO</span>
-    <h2>Audit Sampling &amp; Risk Tool</h2>
-    <p>Guided statutory-audit workflow for a regulated power-transmission utility.</p>
-    <ul class="points">
-      <li>SA 315 risk assessment and SA 530 MUS / stratified sampling</li>
-      <li>Tariff-order revenue reconciliation and SA 505 confirmations</li>
-      <li>Excel workpaper pack, PDF memo and SA 230 audit trail</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">Audit analytics</span><span class="tag">Statistics</span></div>
-    <div class="actions">
-      <a class="btn primary" href="https://ps-audit-tool.streamlit.app">Open demo</a>
-      <a class="btn" href="https://github.com/PS11242026/audit-sampling-tool">Code</a>
-    </div>
-    <p class="note">Fictional utility with synthetic ledger data and planted exceptions to find.</p>
-  </article>
+<script>
+(() => {
+  // Audit visual: a seeded scatter of ledger items, some selected, two exceptions.
+  const g = document.getElementById('audit-dots');
+  let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const NS = 'http://www.w3.org/2000/svg';
+  const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+  const picks = new Set([5, 17, 26, 38, 49, 61, 73, 84, 96, 108, 119]);
+  const exceptions = new Set([49, 73]);
+  for (let i = 0; i < 126; i++) {
+    const col = i % 14, row = Math.floor(i / 14);
+    const x = 56 + col * 28 + (rnd() - .5) * 14, y = 80 + row * 28 + (rnd() - .5) * 14;
+    const r = 1.6 + rnd() * rnd() * 5;
+    const d = (.15 + (col + row) * .035).toFixed(2) + 's';
+    if (picks.has(i)) {
+      const ex = exceptions.has(i);
+      const c = mk('circle', { cx: x, cy: y, r: r + 2, fill: ex ? '#ff5d6c' : 'currentColor', class: 'pop' });
+      c.style.setProperty('--d', (1 + i / 140).toFixed(2) + 's'); g.append(c);
+      const ring = mk('circle', { cx: x, cy: y, r: r + 9, stroke: ex ? '#ff5d6c' : 'currentColor',
+        'stroke-opacity': '.55', class: 'pop' });
+      ring.style.setProperty('--d', (1.1 + i / 140).toFixed(2) + 's'); g.append(ring);
+      if (ex) { const t = mk('text', { x: x + 16, y: y + 4, class: 'vt fade', fill: '#ff5d6c' });
+        t.style.fill = '#ff5d6c'; t.style.setProperty('--d', '1.9s'); t.textContent = '! EXCEPTION'; g.append(t); }
+    } else {
+      const c = mk('circle', { cx: x, cy: y, r, fill: 'rgba(255,255,255,.28)', class: 'pop' });
+      c.style.setProperty('--d', d); g.append(c);
+    }
+  }
 
-  <article class="card">
-    <span class="status local">● RUNS LOCALLY</span>
-    <h2>Jarvis: Local Voice Agent</h2>
-    <p>A local-first Windows voice assistant that answers only to its enrolled user and
-    carries out tasks end to end.</p>
-    <ul class="points">
-      <li>Wake word, voice activity detection and speaker verification</li>
-      <li>Local LLM planner that researches the web when it is unsure</li>
-      <li>App, file, browser and system automation; 489 tests</li>
-    </ul>
-    <div class="tags"><span class="tag">Python</span><span class="tag">Speech</span><span class="tag">Local LLM</span><span class="tag">RAG</span></div>
-    <div class="actions">
-      <a class="btn primary" href="https://github.com/PS11242026/jarvis-agent">Code &amp; setup</a>
-    </div>
-    <p class="note">Needs a Windows PC with a microphone, so it can't run in the browser.</p>
-  </article>
+  // Carousel
+  const track = document.getElementById('track');
+  const slides = [...track.querySelectorAll('.slide')];
+  const tabs = [...document.querySelectorAll('.tab')];
+  const prev = document.getElementById('prev'), next = document.getElementById('next');
+  const cur = document.getElementById('cur');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let active = -1;
 
-</main>
-
-<footer class="wrap">
-  Projects are for education and demonstration. Model outputs are not investment, tax or
-  audit advice. · <a href="https://github.com/PS11242026">GitHub</a>
-</footer>
+  const setActive = (i) => {
+    if (i === active) return; active = i;
+    slides.forEach((sl, k) => { sl.classList.toggle('is-active', k === i);
+      sl.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+      sl.querySelectorAll('a').forEach(a => a.tabIndex = k === i ? 0 : -1); });
+    tabs.forEach((t, k) => { t.setAttribute('aria-selected', k === i); t.tabIndex = k === i ? 0 : -1; });
+    cur.textContent = String(i + 1).padStart(2, '0');
+    prev.disabled = i === 0; next.disabled = i === slides.length - 1;
+    document.documentElement.style.setProperty('--accent', getComputedStyle(slides[i]).getPropertyValue('--hue'));
+  };
+  const goTo = (i) => {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    const sl = slides[i];
+    track.scrollTo({ left: sl.offsetLeft - (track.clientWidth - sl.offsetWidth) / 2,
+      behavior: reduce ? 'auto' : 'smooth' });
+    setActive(i);
+  };
+  const nearest = () => {
+    const mid = track.scrollLeft + track.clientWidth / 2; let best = 0, dist = Infinity;
+    slides.forEach((sl, k) => { const d = Math.abs(sl.offsetLeft + sl.offsetWidth / 2 - mid);
+      if (d < dist) { dist = d; best = k; } });
+    return best;
+  };
+  let raf = 0;
+  track.addEventListener('scroll', () => { cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => setActive(nearest())); }, { passive: true });
+  prev.addEventListener('click', () => goTo(active - 1));
+  next.addEventListener('click', () => goTo(active + 1));
+  tabs.forEach((t, k) => t.addEventListener('click', () => goTo(k)));
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(active + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(active - 1); }
+  });
+  // Click a dimmed neighbour to bring it forward.
+  slides.forEach((sl, k) => sl.addEventListener('click', (e) => {
+    if (k !== active) { e.preventDefault(); goTo(k); } }, true));
+  // Mouse drag (touch already scrolls natively).
+  let drag = null;
+  track.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse' || e.button) return;
+    drag = { x: e.clientX, left: track.scrollLeft, moved: false, start: active }; });
+  addEventListener('pointermove', (e) => { if (!drag) return; const dx = e.clientX - drag.x;
+    if (Math.abs(dx) > 6) { drag.moved = true; track.style.scrollSnapType = 'none';
+      track.scrollLeft = drag.left - dx; } });
+  addEventListener('pointerup', (e) => { if (!drag) return; const { moved, start } = drag, dx = e.clientX - drag.x;
+    drag = null; track.style.scrollSnapType = '';
+    if (moved) { const i = Math.abs(dx) > 80 ? start + (dx < 0 ? 1 : -1) : start;
+      const stop = (ev) => { ev.preventDefault(); ev.stopPropagation(); };
+      track.addEventListener('click', stop, { capture: true, once: true });
+      setTimeout(() => track.removeEventListener('click', stop, true), 0);
+      goTo(Math.max(0, Math.min(slides.length - 1, i))); } });
+  addEventListener('resize', () => goTo(active));
+  setActive(0);
+})();
+</script>
 </body>
 </html>
